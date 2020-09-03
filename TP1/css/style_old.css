@@ -1,0 +1,104 @@
+body {
+    font-family: Helvetica, serif;
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1.titulo {
+    font-size: 2em;
+    display: inline;
+}
+
+nav {
+    display: inline;
+    font-size: 0.8em;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li {
+    display: inline;
+}
+
+footer {
+    color: white;
+    background-color: black;
+    padding: 3px 5px 3px 5px;
+    text-align: center;
+}
+
+a, a:visited{
+    color:inherit;
+    text-decoration: inherit;
+}
+
+header {
+    align-items: center;
+}
+
+header div {
+    margin: 0 5px 0 2px;
+}
+
+footer {
+    color: white;
+}
+
+footer a {
+    margin: 0 3px 0 3px;
+}
+
+.redondo {
+    border-radius: 50%;
+    max-width: 100%;
+}
+
+.flexbox {
+    display: flex;
+
+}
+
+.fb-center {
+    justify-content: center;
+    align-items: center;
+}
+
+#login aside {
+    width: 48%;
+}
+
+#login section {
+    width: 48%;
+}
+
+.elemento-form {
+    display: block;
+    width: 90%;
+}
+
+.elemento-form input {
+    width: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+.elemento-form label {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+.elemento-form button {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 5px 5px 5px 5px;
+}
+
+button {
+    padding: 5px 5px 5px 5px;
+    background: white;
+    font-size: 1.3em;
+    border: #b7b7b7 1px solid;
+}

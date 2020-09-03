@@ -1,0 +1,34 @@
+h1.titulo {
+    font-size: 2em;
+    display: inline;
+}
+
+.navbar-brand :hover {
+    color: #990000;
+}
+
+.subtitulo {
+    font-size: 1.2rem;
+}
+
+.navbar-top {
+    padding-left: 10% !important;
+}
+
+.nav-ul li {
+    margin: 0 5px 0 5px;
+}
+
+footer {
+    margin-top: 2rem;
+}
+
+.redondo {
+    border-radius: 50%;
+    max-width: 100%;
+}
+
+.seccion-registro {
+    margin: 10px 0 10px 0;
+}
+

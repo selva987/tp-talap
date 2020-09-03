@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VideoTrends - Registro</title>
+
+    <link rel="stylesheet" href="css/style_old.css">
+
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+<header><h2>Registro de Usuarios</h2></header>
+<nav>
+    <ul>
+        <li>Crear una Cuenta</li>
+        <li>Olvide mi contraseña</li>
+        <li>Acerca de Nosotros</li>
+    </ul>
+</nav>
+<form method="post">
+    <section>
+        <h2>Datos de Inicio de Sesión</h2>
+        <label for="email">E-mail*</label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Contraseña*</label>
+        <input type="password" name="password" id="password" required>
+        <label for="repetir_password">Repetir Contraseña*</label>
+        <input type="password" name="repetir_password" id="repetir_password" required>
+    </section>
+    <section>
+        <h2>Datos personales</h2>
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" maxlength="60">
+        <label for="apellido">Apellido</label>
+        <input type="text" name="apellido" id="apellido" maxlength="60">
+        <label for="genero">Género</label>
+        <input type="radio" name="genero" value="M">Masculino
+        <input type="radio" name="genero" value="F">Femenino
+        <label for="telefono">Número de teléfono</label>
+        <input type="tel" name="telefono" id="telefono">
+        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento">
+        <label for="pagina_web">Página web</label>
+        <input type="url" name="pagina_web" id="pagina_web">
+    </section>
+    <section>
+        <h2>Datos de localización</h2>
+        <label for="pais">País</label>
+        <select name="pais" id="pais">
+        </select>
+        <label for="provincia">Provincia/Estado</label>
+        <select name="provincia" id="provincia">
+        </select>
+        <label for="ciudad">Ciudad</label>
+        <select name="ciudad" id="ciudad">
+        </select>
+        <label for="altura">Altura (número)</label>
+        <input type="number" name="altura" id="altura">
+        <label for="coordenadas">Coordenadas</label>
+        <input type="text" name="latitud"> Lat.
+        <input type="text" name="longitud"> Long.
+    </section>
+    <button type="submit">Crear mi cuenta</button>
+</form>
+<aside>
+    aca va otra imagen
+    <p class="footer_img">Al hacer clic en "Crear mi cuenta", aceptas las Condiciones y confirmas que leíste
+    nuestra Política de datos, incluido el uso de cookies.</p>
+</aside>
+<footer>
+    <a target="_blank" href="https://youtube.com">YouTube</a>
+    -
+    <a target="_blank" href="https://ugd.edu.ar">U.G.D.</a>
+    -
+    <a target="_blank" href="https://campusvirtual.ugd.edu.ar">Campus Virtual</a>
+</footer>
+</body>
+</html>
