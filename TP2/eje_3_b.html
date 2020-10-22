@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MapClient</title>
+
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <link rel="stylesheet" href="css/style_3_b.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/eje_3_b.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+</head>
+<body>
+<header>
+    <h1 id="arrastrable">MapClient&reg;</h1>
+    <div class="menu">
+        <select id="menu">
+            <option value="title" selected>⚙️Ricardo Selva</option>
+            <option value="modificar">Modificar cuenta</option>
+            <option value="cerrar">Cerrar sesión</option>
+        </select>
+    </div>
+</header>
+<main>
+    <div id="mapa"></div>
+    <section id="accordion">
+        <h3>Usuario</h3>
+        <section>
+            <table>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>email</th>
+                    <th>contrasenia</th>
+                    <th>nombre</th>
+                    <th>apellido</th>
+                    <th>fecha_nacimiento</th>
+                    <th>generofm</th>
+                    <th>telefono</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>ricardosel@gmail.com</td>
+                    <td>dsamk&676!</td>
+                    <td>Ricardo</td>
+                    <td>Selva</td>
+                    <td>06/12/1989</td>
+                    <td>M</td>
+                    <td>3764534787</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <h3>Domicilios</h3>
+        <section>
+            <table>
+                <thead>
+                <tr>
+                    <th>Calle</th>
+                    <th>Altura</th>
+                    <th>Piso</th>
+                    <th>Departamento</th>
+                    <th>Localidad</th>
+                    <th>Provincia</th>
+                    <th>Pais</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Falsa</td>
+                    <td>123</td>
+                    <td></td>
+                    <td></td>
+                    <td>Posadas</td>
+                    <td>Misiones</td>
+                    <td>Argentina</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+</main>
+<footer>
+    <a target="_blank" href="https://www.openstreetmap.org/">OpenStreetMap</a>
+    -
+    <a target="_blank" href="https://ugd.edu.ar">U.G.D.</a>
+    -
+    <a target="_blank" href="https://campusvirtual.ugd.edu.ar">Campus Virtual</a>
+</footer>
+<div id="dialog" style="display:none;" title="Cambiar contraseña">
+    <form method="post" action="#">
+        <label for="email">Email</label>
+        <input type="mail" name="mail">
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <input type="submit" value="Guardar">
+    </form>
+</div>
+<script>
+
+    $(function() {
+        $('#arrastrable').draggable({
+            start: function(e,ui) {
+                $(this).attr('data-top', $(this).css('top'));
+                $(this).attr('data-left', $(this).css('left'));
+            }
+        });
+
+        $('#accordion').accordion();
+
+        $('#accordion section').droppable({
+            drop: function() {
+                $(this).removeClass('over');
+                $('#arrastrable').css({top: $('#arrastrable').attr('data-top')});
+                $('#arrastrable').css({left: $('#arrastrable').attr('data-left')});
+                alert(new Date().toString());
+            },
+            over: function() {
+                $(this).addClass('over');
+            },
+            out: function() {
+                $(this).removeClass('over');
+            }
+        });
+
+        $('#menu').selectmenu({
+            classes: {
+                "menu": "menu"
+            },
+            select: function(e,ui) {
+                if(ui.item.value == 'modificar') {
+                    modalContrasena();
+                }
+            }
+        })
+
+    });
+    var mapa = L.map('mapa').setView([-27.3698155,-55.9413409], 17);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+    }).addTo(mapa);
+</script>
+</body>
+</html>

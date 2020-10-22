@@ -1,0 +1,50 @@
+body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    width: 100%;
+}
+
+main {
+    width: 100%;
+}
+
+#arrastrable {
+    z-index: 999;
+}
+
+#mapa {
+    height: 250px;
+    width: 100%;
+}
+
+.ui-dialog {
+    z-index: 999999 !important;
+}
+
+.menu {
+    display: block;
+    margin-bottom: 5px;
+    float: right;
+    z-index: 999;
+}
+
+.over {
+    background-color: green !important;
+}
+
+footer {
+    color: white;
+    background-color: black;
+    padding: 3px 5px 3px 5px;
+    text-align: center;
+    font-size: 2em;
+}
+
+a, a:visited{
+    color:inherit;
+    text-decoration: inherit;
+}
+
