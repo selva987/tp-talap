@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <title>VideoTrends - Login</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
     <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body class="container">
 <header>
     <nav class="navbar navbar-expand navbar-light bg-light navbar-top">
         <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" class="d-inline-block align-top">
+            <img src="../img/logo.png" class="d-inline-block align-top">
             <h1 class="titulo">VideoTrend</h1>
 
         </a>
@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand navbar-light bg-light justify-content-center">
         <ul class="navbar-nav nav-ul">
             <li class="nav-item">
-                <a href="registro.html" class="nav-link">Crear una Cuenta</a>
+                <a href="../usuarios/registrar" class="nav-link">Crear una Cuenta</a>
             </li>
             <li class="nav-item nav-link">|</li>
             <li class="nav-item">
@@ -43,10 +43,18 @@
 <main id="login" class="card m-2">
     <div class="card-body container-fluid row justify-content-center">
         <aside class="col-xs-12 col-md-6 text-center">
-            <img src="img/login-aside.jpg" alt="imagen del lado" class="redondo">
+            <img src="../img/login-aside.jpg" alt="imagen del lado" class="redondo">
         </aside>
         <section class="col-xs-12 col-md-6 text-center login-form">
-            <form method="post">
+            <form method="post" action="../usuarios/iniciar_sesion">
+            <?php if(isset($error)) { ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $error ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <?php } ?>
                 <div class="form-group">
                     <input type="email" required id="mail" name="mail" class="form-control text-center">
                     <label for="mail">E-mail</label>
@@ -61,7 +69,7 @@
                 </div>
                 <hr>
                 <div class="form-group">
-                    <a href="registro.html" class="btn btn-outline-primary w-100">Crear una cuenta</a>
+                    <a href="../usuarios/registrar" class="btn btn-outline-primary w-100">Crear una cuenta</a>
                 </div>
             </form>
         </section>

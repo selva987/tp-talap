@@ -1,7 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once __DIR__.'/AuthController.php';
 
-class Usuarios extends CI_Controller {
+class Usuarios extends AuthController {
+
+    protected $sinLogin = [
+        'registrar',
+        'nuevo_usuario',
+        'validar_email',
+        'login',
+        'iniciar_sesion'
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('usuarios_model','usuario');
+    }
 
     public function index() {
         echo 'holis';
@@ -11,18 +26,23 @@ class Usuarios extends CI_Controller {
         $this->load->view('registro');
     }
 
+    public function modificar() {
+        $user = $this->usuario->getUsuarioById($this->session->userdata('id'));
+        $this->load->view('registro',['user' => $user]);
+    }
+
+    public function modificar_datos() {
+        $this->usuario->editarUsuario($this->input->post());
+        redirect('principal');
+    }
+
     public function nuevo_usuario(){
 
         //obtiene las variables que se enviar por el formulario de registro via metodo POST
         $email = $this->input->post('email');
-        $nombre = $this->input->post('nombre');
-        $apellido = $this->input->post('apellido');
-
-        //carga el modelo de usuarios y ejecuta el metodo para insertar un usuario en la DB
-        $this->load->model('usuarios_model','usuario');
 
         //valida el email que no exista antes de insertar
-        $arr_usuario=$this->usuario->get_usuario_by_email($email);
+        $arr_usuario=$this->usuario->getUsuarioByMail($email);
         if(count($arr_usuario)>0){
 
             $data = array(
@@ -30,9 +50,9 @@ class Usuarios extends CI_Controller {
                 'message' => 'Ya existe un usuario registrado con el correo ingresado'
             );
 
-            $this->load->view('formulario_registro',$data);
+            $this->load->view('registro',['user' => $data, 'error' => 'Ya existe ese mail']);
         }else{
-            $resul=$this->usuario->nuevo_usuario($email,$nombre,$apellido);
+            $resul=$this->usuario->nuevoUsuario($this->input->post());
             //si el resultado del insert retorno true, quiere decir que se agrego correctamente el usuario
             if($resul==true){
 
@@ -41,7 +61,7 @@ class Usuarios extends CI_Controller {
                     'message' => 'Usuario registrado correctamente'
                 );
 
-                $this->load->view('formulario_login',$data);
+                $this->load->view('login',$data);
 
             }else{
 
@@ -50,7 +70,7 @@ class Usuarios extends CI_Controller {
                     'message' => 'Error al intentar registrar el usuario'
                 );
 
-                $this->load->view('formulario_registro',$data);
+                $this->load->view('registro',$data);
             }
 
         }
@@ -61,16 +81,16 @@ class Usuarios extends CI_Controller {
     public function validar_email(){
 
         //obtiene las variables que se enviar por el formulario de registro via metodo POST
-        $email = $this->input->post('email');
+        $email = $this->input->get('mail');
 
         //carga el modelo de usuarios y ejecuta el metodo para insertar un usuario en la DB
-        $this->load->model('usuarios_model','usuario');
 
-        $arr_usuario=$this->usuario->get_usuario_by_email($email);
+
+        $arr_usuario=$this->usuario->getUsuarioByMail($email);
         if(count($arr_usuario)>0){
 
             $data = array(
-                'warning' => true,
+                'success' => false,
                 'message' => 'Ya existe un usuario registrado con el correo ingresado'
             );
 
@@ -86,24 +106,36 @@ class Usuarios extends CI_Controller {
 
     }
 
+    public function login() {
+        $this->load->view('login');
+    }
+
     public function iniciar_sesion(){
 
-        //TODO:
-        //Habria que validar con una consulta en la base de datos de que el usuario exista.
-        //Es decir que el email y el passord coincidan.
-        //Si los datos coinciden guardar los datos del usuario en sesion
+        $user = $this->usuario->getUserLogin($this->input->post('mail'), $this->input->post('password'));
+
+        if(!$user) {
+            $data = ['error' => 'Mail o contraseña incorrectos!'];
+            $this->load->view('login', $data);
+            return null;
+        }
 
         $arr_datos_usr = array(
-            'nombre_usuario'  => 'SusanitaGimenez',
-            'email'     => 'su@ssusana.com',
-            'logeado' => TRUE
+            'id'  => $user['id'],
+            'mail'  => $user['mail'],
+            'nombre'     => $user['nombre'] . ' ' . $user['apellido'],
+            'login' => true
         );
 
         //guarda en sesion los datos del usuario
         $this->session->set_userdata($arr_datos_usr);
 
-        //si se quiere agregar un nuevo dato en sesion se podría hacer de esta forma:
-        $this->session->set_userdata('apellido', 'Gimenez');
+        redirect('principal');
+
+
+
+//        //si se quiere agregar un nuevo dato en sesion se podría hacer de esta forma:
+//        $this->session->set_userdata('apellido', 'Gimenez');
 
     }
 
@@ -111,26 +143,27 @@ class Usuarios extends CI_Controller {
 
         //elimina todos los datos de la sesion actual
         session_destroy();
+        $this->load->view('login');
 
         //tambien se puede usar el siguiente metodo que cumple la misma funcion
         //$this->session->sess_destroy();
 
     }
 
-    public function test_imprimir_sesion(){
-        print_r($this->session->all_userdata());
-    }
-
-    public function test_get_datos_sesion(){
-
-        if($this->session->has_userdata('logeado')){
-            //obtiene una variable llamada 'item' guardada en la sesión
-            $nombre_usuario=$this->session->userdata('nombre_usuario');
-            print_r($nombre_usuario);
-        }
-
-
-    }
+//    public function test_imprimir_sesion(){
+//        print_r($this->session->all_userdata());
+//    }
+//
+//    public function test_get_datos_sesion(){
+//
+//        if($this->session->has_userdata('logeado')){
+//            //obtiene una variable llamada 'item' guardada en la sesión
+//            $nombre_usuario=$this->session->userdata('nombre_usuario');
+//            print_r($nombre_usuario);
+//        }
+//
+//
+//    }
 
 
 
